@@ -41,7 +41,7 @@ def _get_pullrequest(data, action):
     resp = _set_author_infos(resp, data)
 
     pr = data.pullrequest
-    pr_link = '[%s](%s)' % (pr.title, pr.links.html.href)
+    pr_link = '[#%s %s](%s)' % (pr.id, pr.title, pr.links.html.href)
     pr_src_link = '%s/branch/%s' % (pr.source.repository.links.html.href,
                                     pr.source.branch.name)
     pr_dst_link = '%s/branch/%s' % (pr.destination.repository.links.html.href,
