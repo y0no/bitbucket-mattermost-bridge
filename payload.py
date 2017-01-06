@@ -114,9 +114,14 @@ def repo_commit_status_updated(data):
     resp = _get_default_data()
     resp = _set_author_infos(resp, data)
 
+    if data.commit_status.state == 'INPROGRESS':
+        state = 'in progress'
+    else:
+        state = data.commit_status.state.lower()
+        resp['color'] = _set_color_from_state(data.commit_status.state)
+
     ci_link = '[%s](%s)' % (data.commit_status.key, data.commit_status.url)
-    resp['text'] = 'CI build on %s is finished' % ci_link
-    resp['color'] = _set_color_from_state(data.commit_status.state)
+    resp['text'] = 'CI build on %s is %s' % (ci_link, state)
 
     return resp
 
